@@ -3,12 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f8fc" />
-  <meta name="description" content="RAYEH — قارن مشوارك واختر التطبيق الأنسب" />
-  <title>RAYEH | رايح</title>
+  <meta name="theme-color" content="#050b16" />
+  <meta name="description" content="Chauffeur — قارن مشوارك واختر التطبيق الأنسب" />
+  <meta name="application-name" content="Chauffeur" />
+  <meta name="apple-mobile-web-app-title" content="Chauffeur" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <title>Chauffeur</title>
+  <style>
+    .brand-mark,.page-brand{
+      background:#000 url('/chauffeur-logo.webp') center/cover no-repeat!important;
+      color:transparent!important;
+      font-size:0!important;
+      overflow:hidden!important;
+      padding:0!important;
+    }
+    .brand-lockup small{display:none!important}
+    .brand-lockup strong{font-size:18px!important;letter-spacing:.01em!important}
+    #chauffeur-splash{position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .35s ease,visibility .35s ease}
+    #chauffeur-splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+    #chauffeur-splash img{width:122px;height:122px;object-fit:cover;border-radius:32px;box-shadow:0 0 38px rgba(27,128,255,.45)}
+    #chauffeur-splash strong{font:800 25px/1.1 system-ui,-apple-system,Segoe UI,sans-serif;color:#fff;letter-spacing:.02em}
+  </style>
 </head>
 <body>
+  <div id="chauffeur-splash"><img src="/chauffeur-logo.webp" alt="Chauffeur"/><strong>Chauffeur</strong></div>
   <div id="root"></div>
+  <script>
+    (() => {
+      const brand = () => {
+        document.title = 'Chauffeur';
+        document.querySelectorAll('.brand-lockup strong').forEach(el => { if (el.textContent !== 'Chauffeur') el.textContent = 'Chauffeur'; });
+        document.querySelectorAll('.brand-lockup small').forEach(el => el.style.display='none');
+        document.querySelectorAll('.brand-mark,.page-brand').forEach(el => { el.textContent=''; el.setAttribute('aria-label','Chauffeur'); });
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(n => { if(n.nodeValue && n.nodeValue.includes('RAYEH')) n.nodeValue=n.nodeValue.replaceAll('RAYEH','Chauffeur'); });
+      };
+      new MutationObserver(brand).observe(document.documentElement,{subtree:true,childList:true});
+      window.addEventListener('DOMContentLoaded',brand);
+      window.addEventListener('load',()=>setTimeout(()=>document.getElementById('chauffeur-splash')?.classList.add('hide'),450));
+      setTimeout(()=>document.getElementById('chauffeur-splash')?.classList.add('hide'),1800);
+    })();
+  </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

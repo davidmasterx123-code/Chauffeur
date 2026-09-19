@@ -1,7 +1,7 @@
 {
   "name": "chauffeur-rayeh",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
     "lucide-react": "^0.469.0",
     "maplibre-gl": "^4.7.1",
     "react": "^19.0.0",

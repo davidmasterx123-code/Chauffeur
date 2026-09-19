@@ -1,18 +1,10 @@
 # Chauffeur / RAYEH
 
-Mobile-first Arabic RTL ride comparison UI for Egypt.
+Ride comparison prototype for Egypt.
 
-## Run
+## Authentication
+Set these Vercel environment variables:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
 
-```bash
-npm install
-npm run dev
-```
-
-## Build
-
-```bash
-npm run build
-```
-
-The app uses MapLibre GL with CARTO/OSM light raster tiles, browser geolocation, local history, provider handoff links/intents, and a light premium UI.
+Then enable Google, Apple and X / Twitter OAuth 2.0 in Supabase Auth and add the Vercel production URL to the redirect allow list.

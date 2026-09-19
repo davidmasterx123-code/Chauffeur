@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - "Chauffeur-ready.zip"
       - ".github/workflows/extract.yml"
 
 permissions:
@@ -20,15 +21,24 @@ jobs:
 
       - name: Extract project
         run: |
+          rm -rf /tmp/chauffeur
+          mkdir -p /tmp/chauffeur
           unzip -o Chauffeur-ready.zip -d /tmp/chauffeur
-          cp -R /tmp/chauffeur/Chauffeur/. .
+
+          if [ -d /tmp/chauffeur/Chauffeur-v2 ]; then
+            cp -R /tmp/chauffeur/Chauffeur-v2/. .
+          elif [ -d /tmp/chauffeur/Chauffeur ]; then
+            cp -R /tmp/chauffeur/Chauffeur/. .
+          else
+            cp -R /tmp/chauffeur/. .
+          fi
+
           rm -f Chauffeur-ready.zip
-          rm -f styles.css
 
       - name: Commit project
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Extract Chauffeur application" || exit 0
+          git commit -m "Update Chauffeur application" || exit 0
           git push
